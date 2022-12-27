@@ -8,7 +8,9 @@ const db = require("../DB");
 
 const Slams = db.get("slams");
 
-router.get("/mySlam", async (req, res) => {
+const fetchuser = require("../Middlewares/fetchuser")
+
+router.get("/mySlam",fetchuser, async (req, res) => {
   try {
     const items = await Slams.find();
     return res.json({
@@ -22,7 +24,7 @@ router.get("/mySlam", async (req, res) => {
   }
 });
 
-router.post("/createSlam", async (req, res) => {
+router.post("/createSlam", fetchuser, async (req, res) => {
   try {
     // validate the body
     const slam = await SlamSchema.validateAsync(req.body);

@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(volleyball);
 
 app.use("/api/auth", require("./Routes/auth"));
+app.use("/api/slams", require("./Routes/slams"));
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);

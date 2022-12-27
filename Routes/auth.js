@@ -12,6 +12,8 @@ const bcrypt = require("bcryptjs");
 
 const jwt = require("jsonwebtoken");
 
+const fetchuser = require("../Middlewares/fetchuser");
+
 // Route 1: Create a User using POST : "/api/auth/createUser"
 router.post("/createUser", async (req, res) => {
   try {
@@ -30,6 +32,7 @@ router.post("/createUser", async (req, res) => {
       const secPass = await bcrypt.hash(req.body.password, 10);
       user.password = secPass;
       // insert to DB
+      user.created_on = new Date().toLocaleString();
       const createdUser = await User.insert(user);
       return res.status(201).json({
         message: "User Registered Successfully",
@@ -80,6 +83,23 @@ router.post("/userLogin", async (req, res) => {
     }
     return res.status(422).json({
       message: "Try to login with valid Credentials",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Some Internal Server Error",
+      error: error.message,
+    });
+  }
+});
+
+// Route 3 : fetch the user
+router.get("/getUser", fetchuser, async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.user._id,
+    });
+    return res.status(201).json({
+      message: user,
     });
   } catch (error) {
     return res.status(500).json({

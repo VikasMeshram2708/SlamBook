@@ -1,8 +1,8 @@
 # SlamBook is a book where the person saves his favourite things etc...
 
 ### How i made this project
-* [] npm init -y
-* [] npm i express cors dotenv bcryptjs jsonwebtoken volleyball monk nodemailer joi
+* [x] npm init -y
+* [x] npm i express cors dotenv bcryptjs jsonwebtoken volleyball monk nodemailer joi
 
 
 ## Description of Package we're gonna use...

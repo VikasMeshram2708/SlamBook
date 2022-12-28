@@ -33,7 +33,7 @@ router.get("/mySlams", fetchuser, async (req, res) => {
       user: req.user._id,
     });
     return res.json({
-      message: items.reverse(),
+      message: items,
     });
   } catch (error) {
     return res.status(500).json({

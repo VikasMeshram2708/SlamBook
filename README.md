@@ -79,7 +79,11 @@
 
 * [x] Make request to Create slam api.
 * [x] Make request to read slam api.
-* [] Make request to Update slam api.
+* [x] Make request to Update slam api.
 * [x] Make request to Delete slam api.
 
-* [x] Make an api to fetchthe slam collection
+# To Update Your Slam
+1. Click on Update
+2. Change Your title, tag, or Description...
+3. Hit the Make Chage Button.
+4. Delete that duplicate slam.

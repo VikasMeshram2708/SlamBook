@@ -7,6 +7,7 @@ const Profile = () => {
   const [invalidBody, setInvalidBody] = useState(false);
   const [notProvided, setNotProvided] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [newUpdateButton, setNewUpdateButton] = useState(false);
   let [userParamId, setUserParamId] = useState("");
   const [items, setItems] = useState([]);
   const [title, setTitle] = useState("");
@@ -98,7 +99,7 @@ const Profile = () => {
 
   // Delete the slam
   const deleteSlam = async () => {
-    console.log(userParamId);
+    // console.log(userParamId);
     const response = await fetch(`/api/slams/deleteSlam/${userParamId}`, {
       method: "DELETE",
       headers: {
@@ -233,9 +234,21 @@ const Profile = () => {
           />
           <label htmlFor="floatingPassword">Tag</label>
         </div>
-        <button className="w-100 btn btn-lg btn-outline-primary" type="submit">
-          Add to SlamBook
-        </button>
+        {!newUpdateButton ? (
+          <button
+            className="w-100 btn btn-lg btn-outline-primary"
+            type="submit"
+          >
+            Add to SlamBook
+          </button>
+        ) : (
+          <button
+            className="w-100 btn btn-lg btn-outline-primary"
+            type="submit"
+          >
+            Make New Change
+          </button>
+        )}
       </form>
       <div className="container mt-3">
         <div className="row row-cols-1 row-cols-md-2 g-4">
@@ -262,6 +275,18 @@ const Profile = () => {
                       type="button"
                     >
                       Delete
+                    </button>
+                    <button
+                      onClick={async () => {
+                        setNewUpdateButton(true);
+                        setTitle(item.title);
+                        setDescription(item.description);
+                        setTag(item.tag);
+                      }}
+                      className="mx-2 btn btn-sm btn-primary"
+                      type="button"
+                    >
+                      Update
                     </button>
                   </div>
                 </div>

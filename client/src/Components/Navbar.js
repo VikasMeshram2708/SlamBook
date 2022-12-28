@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = (props) => {
+  const navigate = useNavigate();
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -44,10 +45,18 @@ const Navbar = (props) => {
               </li>
             </ul>
             <form className="d-flex">
-              <button className="btn btn-primary my-2 my-sm-0" type="submit">
+              <button
+                onClick={() => navigate("/signUp")}
+                className="btn btn-primary my-2 my-sm-0"
+                type="button"
+              >
                 {props.navItem4}
               </button>
-              <button className="btn btn-danger mx-2 my-2 my-sm-0" type="submit">
+              <button
+                onClick={() => navigate("/signIn")}
+                className="btn btn-danger mx-2 my-2 my-sm-0"
+                type="button"
+              >
                 {props.navItem5}
               </button>
             </form>

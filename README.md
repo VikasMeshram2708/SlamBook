@@ -72,9 +72,14 @@
 # Additions Customization
 * [x] On Every valid and invalid request we're showing the bootstrap alert event.
 
+* [] Before Deploying on web remove the logs.
+* [] Use mongodb atlas.
+
 # Now work on the making new Slams in our SlamBook
 
-* [] Make request to Create slam api.
-* [] Make request to read slam api.
+* [x] Make request to Create slam api.
+* [x] Make request to read slam api.
 * [] Make request to Update slam api.
-* [] Make request to Delete slam api.
+* [x] Make request to Delete slam api.
+
+* [x] Make an api to fetchthe slam collection

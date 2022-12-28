@@ -27,7 +27,9 @@ const SignIn = () => {
         },
       });
       const json = await response.json();
+      // console.log(json);
       const { token } = json;
+      console.log(token)
       if (response.status === 201) {
         setEmail("");
         setPassword("");

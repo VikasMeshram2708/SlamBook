@@ -10,6 +10,22 @@ const Slams = db.get("slams");
 
 const fetchuser = require("../Middlewares/fetchuser");
 
+// Route : Fetch the user and send its items
+router.get("/getMe", fetchuser, async (req, res) => {
+  try {
+    const items = await Slams.find();
+    console.log(items);
+    return res.status(201).json({
+      message: items,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Some Internal Server Error",
+      error: error.message,
+    });
+  }
+});
+
 // Route 1 : get all slams using GET : /api/slams/mySlams
 router.get("/mySlams", fetchuser, async (req, res) => {
   try {
@@ -17,7 +33,7 @@ router.get("/mySlams", fetchuser, async (req, res) => {
       user: req.user._id,
     });
     return res.json({
-      message: items,
+      message: items.reverse(),
     });
   } catch (error) {
     return res.status(500).json({
@@ -45,7 +61,7 @@ router.post("/createSlam", fetchuser, async (req, res) => {
         tag,
         created_on,
       });
-      return res.json({
+      return res.status(201).json({
         data: createdSlams,
       });
     }

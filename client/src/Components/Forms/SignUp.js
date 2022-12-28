@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
@@ -8,17 +8,20 @@ const SignUp = () => {
   const [phone, setPhone] = useState("");
   const [dob, setDob] = useState("");
 
-  const formSubmitted = (event) => {
-    event.preventDefault();
-    const data = {
-      name,
-      email,
-      password,
-      phone,
-      dob,
-    };
-    console.log(data);
-  };
+  const formSubmitted = useCallback(
+    (event) => {
+      event.preventDefault();
+      const data = {
+        name,
+        email,
+        password,
+        phone,
+        dob,
+      };
+      console.log(data);
+    },
+    [name, email, password, phone, dob]
+  );
 
   return (
     <>

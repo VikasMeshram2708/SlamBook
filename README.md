@@ -70,7 +70,7 @@
 
 
 # Additions Customization
-* [x] On Every invaldi request we're showing the bootstrap alert event.
+* [x] On Every valid and invalid request we're showing the bootstrap alert event.
 
 # Now work on the making new Slams in our SlamBook
 

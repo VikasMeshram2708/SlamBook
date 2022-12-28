@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 const SignIn = () => {
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
+  const [invalidEmailSuccess, setInvalidEmailSuccess] = useState(false);
+  const [internalError, setInternalError] = useState(false);
+  const [invalidKey, setInvalidKey] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -34,14 +37,24 @@ const SignIn = () => {
           navigate("/profile");
         }, 3000);
       }
-      if (response.status === 403) {
-        alert("Hey, try to register with valid credentails...");
+      if (response.status === 422) {
+        setInvalidEmailSuccess(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+        // alert("");
       }
       if (response.status === 404) {
-        alert("Try to register with valid Credentials invalid key provided...");
+        setInvalidKey(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       }
       if (response.status === 500) {
-        alert("Some Internal Server Error");
+        setInternalError(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       }
     },
     // eslint-disable-next-line
@@ -56,6 +69,56 @@ const SignIn = () => {
           role="alert"
         >
           <strong>User Logged In Successfully...</strong>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+      ) : (
+        ""
+      )}
+      {invalidEmailSuccess ? (
+        <div
+          className="text-center alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>Try to login with valid Credentials or password</strong>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+      ) : (
+        ""
+      )}
+      {invalidKey ? (
+        <div
+          className="text-center alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>
+            Try to register with valid Credentials invalid key provided...
+          </strong>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+      ) : (
+        ""
+      )}
+      {internalError ? (
+        <div
+          className="text-center alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>Some Internal Server Error</strong>
           <button
             type="button"
             className="btn-close"

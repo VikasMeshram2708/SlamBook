@@ -69,4 +69,12 @@
 * [x] When the User Sign UP or Sign In show the bootstrap alert for 3 second and then redirect to respective nav Items.
 
 
-* [] Enable Browser side validtions.
+# Additions Customization
+* [x] On Every invaldi request we're showing the bootstrap alert event.
+
+# Now work on the making new Slams in our SlamBook
+
+* [] Make request to Create slam api.
+* [] Make request to read slam api.
+* [] Make request to Update slam api.
+* [] Make request to Delete slam api.

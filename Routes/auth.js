@@ -82,7 +82,7 @@ router.post("/userLogin", async (req, res) => {
       });
     }
     return res.status(422).json({
-      message: "Try to login with valid Credentials",
+      message: "Try to login with valid Credentials or password",
     });
   } catch (error) {
     return res.status(500).json({

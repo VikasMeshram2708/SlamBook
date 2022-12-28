@@ -18,7 +18,7 @@ const SignIn = () => {
         email,
         password,
       };
-      console.log(data);
+      // console.log(data);
       const response = await fetch(apiURI, {
         method: "POST",
         body: JSON.stringify(data),
@@ -29,7 +29,7 @@ const SignIn = () => {
       const json = await response.json();
       // console.log(json);
       const { token } = json;
-      console.log(token)
+      // console.log(token)
       if (response.status === 201) {
         setEmail("");
         setPassword("");

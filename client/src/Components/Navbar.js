@@ -22,12 +22,7 @@ const Navbar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarColor02">
-            <ul className="navbar-nav me-auto">
-              <li className="nav-item">
-                <Link className="nav-link active" to="/">
-                  Home
-                </Link>
-              </li>
+            <ul className="navbar-nav me-auto active">
               {localStorage.getItem("authToken") ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/profile">
@@ -37,16 +32,6 @@ const Navbar = (props) => {
               ) : (
                 ""
               )}
-              <li className="nav-item">
-                <Link className="nav-link" to="/about">
-                  {props.navItem2}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/contact">
-                  {props.navItem3}
-                </Link>
-              </li>
             </ul>
             {!localStorage.getItem("authToken") ? (
               <form className="d-flex">

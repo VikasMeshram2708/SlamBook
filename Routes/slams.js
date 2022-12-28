@@ -85,4 +85,33 @@ router.put("/updateSlam/:id", async (req, res) => {
   }
 });
 
+// Route 4 : Delete slam using DELETE : /api/slams/deleteSlam
+router.delete("/deleteSlam/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const item = await Slams.findOne({
+      _id: id,
+    });
+
+    if (!item) {
+      return res.status(422).json({
+        message: "Not Found....",
+      });
+    }
+
+    await Slams.remove({
+      _id: id,
+    });
+    return res.status(201).json({
+      message: "Success",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Some Internal Server Error",
+      error: error.message,
+    });
+  }
+});
+
 module.exports = router;

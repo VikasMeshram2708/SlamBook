@@ -146,6 +146,7 @@ const SignIn = () => {
               setEmail(event.target.value);
             }}
             placeholder="name@example.com"
+            required
           />
           <label htmlFor="floatingInput">Email address</label>
         </div>
@@ -159,6 +160,8 @@ const SignIn = () => {
               setPassword(event.target.value);
             }}
             placeholder="Password"
+            minLength="5"
+            required
           />
           <label htmlFor="floatingPassword">Password</label>
         </div>

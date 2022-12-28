@@ -133,6 +133,8 @@ const SignUp = () => {
               setName(event.target.value);
             }}
             placeholder="name"
+            minLength="2"
+            required
           />
           <label htmlFor="floatingInput">Name</label>
         </div>
@@ -146,6 +148,7 @@ const SignUp = () => {
               setEmail(event.target.value);
             }}
             placeholder="name@example.com"
+            required
           />
           <label htmlFor="floatingInput">Email address</label>
         </div>
@@ -159,6 +162,8 @@ const SignUp = () => {
               setPassword(event.target.value);
             }}
             placeholder="Password"
+            minLength="5"
+            required
           />
           <label htmlFor="floatingPassword">Password</label>
         </div>
@@ -174,6 +179,7 @@ const SignUp = () => {
               setPhone(event.target.value);
             }}
             placeholder="mobile no...."
+            required
           />
           <label htmlFor="floatingInput">Phone</label>
         </div>
@@ -187,6 +193,7 @@ const SignUp = () => {
               setDob(event.target.value);
             }}
             placeholder="Date of Birth"
+            required
           />
           <label htmlFor="floatingInput">Date of Birth</label>
         </div>

@@ -72,8 +72,9 @@
 # Additions Customization
 * [x] On Every valid and invalid request we're showing the bootstrap alert event.
 
-* [] Before Deploying on web remove the logs.
-* [] Use mongodb atlas.
+* [x] Before Deploying on web remove the logs.
+* [x] Use mongodb atlas.
+* [x] Make Broswer Side Validations.
 
 # Now work on the making new Slams in our SlamBook
 

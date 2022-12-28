@@ -8,9 +8,10 @@ const db = require("../DB");
 
 const Slams = db.get("slams");
 
-const fetchuser = require("../Middlewares/fetchuser")
+const fetchuser = require("../Middlewares/fetchuser");
 
-router.get("/mySlam",fetchuser, async (req, res) => {
+// Route 1 : get all slams using GET : /api/slams/mySlams
+router.get("/mySlams", fetchuser, async (req, res) => {
   try {
     const items = await Slams.find();
     return res.json({
@@ -24,6 +25,7 @@ router.get("/mySlam",fetchuser, async (req, res) => {
   }
 });
 
+// Route 2 : Create slam using POST : /api/slams/createSlam
 router.post("/createSlam", fetchuser, async (req, res) => {
   try {
     // validate the body
@@ -38,6 +40,42 @@ router.post("/createSlam", fetchuser, async (req, res) => {
     }
     return res.status(422).json({
       message: "Try, to create Slams with valid credentials",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Some Internal Server Error",
+      error: error.message,
+    });
+  }
+});
+
+// Route 3 : Update slam using PUT : /api/slams/updateSlam
+router.put("/updateSlam/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const value = await SlamSchema.validateAsync(req.body);
+
+    const item = await Slams.findOne({
+      _id: id,
+    });
+
+    if (!item) {
+      return res.status(422).json({
+        message: "Not Found...",
+      });
+    }
+
+    const updated = await Slams.update(
+      {
+        _id: id,
+      },
+      {
+        $set: value,
+      }
+    );
+    return res.status(201).json({
+      message: value,
     });
   } catch (error) {
     return res.status(500).json({

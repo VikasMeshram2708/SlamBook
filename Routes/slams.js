@@ -13,7 +13,9 @@ const fetchuser = require("../Middlewares/fetchuser");
 // Route 1 : get all slams using GET : /api/slams/mySlams
 router.get("/mySlams", fetchuser, async (req, res) => {
   try {
-    const items = await Slams.find();
+    const items = await Slams.find({
+      user: req.user._id,
+    });
     return res.json({
       message: items,
     });
@@ -28,12 +30,21 @@ router.get("/mySlams", fetchuser, async (req, res) => {
 // Route 2 : Create slam using POST : /api/slams/createSlam
 router.post("/createSlam", fetchuser, async (req, res) => {
   try {
+    const user = req.user._id;
+    // console.log(user);
+    const { title, description, tag } = req.body;
     // validate the body
     const slam = await SlamSchema.validateAsync(req.body);
     if (slam) {
       // insert to db
-      slam.created_on = new Date().toLocaleString();
-      const createdSlams = await Slams.insert(slam);
+      const created_on = new Date().toLocaleString();
+      const createdSlams = await Slams.insert({
+        user,
+        title,
+        description,
+        tag,
+        created_on,
+      });
       return res.json({
         data: createdSlams,
       });
@@ -50,7 +61,7 @@ router.post("/createSlam", fetchuser, async (req, res) => {
 });
 
 // Route 3 : Update slam using PUT : /api/slams/updateSlam
-router.put("/updateSlam/:id", async (req, res) => {
+router.put("/updateSlam/:id", fetchuser, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -86,7 +97,7 @@ router.put("/updateSlam/:id", async (req, res) => {
 });
 
 // Route 4 : Delete slam using DELETE : /api/slams/deleteSlam
-router.delete("/deleteSlam/:id", async (req, res) => {
+router.delete("/deleteSlam/:id", fetchuser, async (req, res) => {
   try {
     const { id } = req.params;
 

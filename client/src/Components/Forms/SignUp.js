@@ -8,8 +8,9 @@ const SignUp = () => {
   const [phone, setPhone] = useState("");
   const [dob, setDob] = useState("");
 
+  const apiURI = "/api/auth/createUser";
   const formSubmitted = useCallback(
-    (event) => {
+    async (event) => {
       event.preventDefault();
       const data = {
         name,
@@ -18,7 +19,27 @@ const SignUp = () => {
         phone,
         dob,
       };
-      console.log(data);
+      // console.log(data);
+      const response = await fetch(apiURI, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await response.json();
+      console.log(json);
+      if (response.status === 403) {
+        alert(
+          "Hey, try to register with valid credentails email already registerd..."
+        );
+      }
+      if (response.status === 422) {
+        alert("Try to register with valid Credentials...");
+      }
+      if (response.status === 500) {
+        alert("Some Internal Server Error");
+      }
     },
     [name, email, password, phone, dob]
   );

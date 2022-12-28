@@ -23,7 +23,7 @@ router.post("/createUser", async (req, res) => {
       // find the email if already exist
       const isExist = await User.findOne({ email: req.body.email });
       if (isExist) {
-        return res.status(422).json({
+        return res.status(403).json({
           message:
             "Hey, try to register with valid credentails email already registerd...",
         });

@@ -21,7 +21,7 @@
 * [joi][for schema validation]
 
 
-* [] Client Side
+* [x] Client Side
 
 * [x] Create a client folder in the root directory of the folder where our server side was created.
 
@@ -34,4 +34,15 @@
 
 * [x] Create Components like [Navbar, Forms, etc...]
 
-* [] Create Sign Up & Sign in forms with form actions...
+* [x] Create Sign Up & Sign in forms with form actions...
+
+* [x] When the user logs in he/she should be redirected to profile page...
+
+* [x] Create Profile page having input properties of title, description, and tag.
+
+
+# Make backedn talk to our client side
+
+* [x] using fetch for making http request to our backend
+
+* [x] Sign Up api testing with client side success

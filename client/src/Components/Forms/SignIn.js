@@ -1,18 +1,24 @@
-import React, { useState,useCallback } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const formSubmitted = useCallback((event) => {
-    event.preventDefault();
-    const data = {
-      email,
-      password,
-    };
-    console.log(data);
-  },[email,password]);
+  const formSubmitted = useCallback(
+    (event) => {
+      event.preventDefault();
+      const data = {
+        email,
+        password,
+      };
+      console.log(data);
+      navigate("/profile");
+    },
+    // eslint-disable-next-line
+    [email, password]
+  );
 
   return (
     <>

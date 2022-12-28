@@ -41,7 +41,7 @@
 * [x] Create Profile page having input properties of title, description, and tag.
 
 
-# Make backedn talk to our client side
+# Make Backend talk to our client side
 
 * [x] using fetch for making http request to our backend.
 
@@ -62,5 +62,11 @@
 * [x] Don't show the profile link on navbar unless the user is logged in.
 
 * [x] Prevent the user form directly going to profile page.
+
+
+* [x] Show Bootstrrap Alerts when the user Sign Up or Sign In.
+
+* [x] When the User Sign UP or Sign In show the bootstrap alert for 3 second and then redirect to respective nav Items.
+
 
 * [] Enable Browser side validtions.

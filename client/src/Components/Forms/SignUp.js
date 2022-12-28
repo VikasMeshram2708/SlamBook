@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [success, setSuccess] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,12 +32,15 @@ const SignUp = () => {
       const json = await response.json();
       console.log(json);
       if (response.status === 201) {
-        alert("User Registerd Successfully...");
+        setSuccess(true);
         setName("");
         setEmail("");
         setPhone("");
         setPassword("");
         setDob("");
+        setTimeout(() => {
+          navigate("/signIn");
+        }, 3000);
       }
       if (response.status === 403) {
         alert(
@@ -49,11 +54,28 @@ const SignUp = () => {
         alert("Some Internal Server Error");
       }
     },
+    // eslint-disable-next-line
     [name, email, password, phone, dob]
   );
 
   return (
     <>
+      {success ? (
+        <div
+          className="text-center alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>User Registerd Successfully...</strong>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+      ) : (
+        ""
+      )}
       <form
         onSubmit={formSubmitted}
         className="p-4 p-md-5 border rounded-3 bg-light container mt-5"

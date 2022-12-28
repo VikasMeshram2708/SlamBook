@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const [success, setSuccess] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,11 +26,13 @@ const SignIn = () => {
       const json = await response.json();
       const { token } = json;
       if (response.status === 201) {
-        alert("User Logged Successfully...");
-        navigate("/profile");
         setEmail("");
         setPassword("");
+        setSuccess(true);
         localStorage.setItem("authToken", token);
+        setTimeout(() => {
+          navigate("/profile");
+        }, 3000);
       }
       if (response.status === 403) {
         alert("Hey, try to register with valid credentails...");
@@ -47,6 +50,22 @@ const SignIn = () => {
 
   return (
     <>
+      {success ? (
+        <div
+          className="text-center alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>User Logged In Successfully...</strong>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+      ) : (
+        ""
+      )}
       <form
         onSubmit={formSubmitted}
         className="p-4 p-md-5 border rounded-3 bg-light container mt-5"

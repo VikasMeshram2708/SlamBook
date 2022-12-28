@@ -43,6 +43,24 @@
 
 # Make backedn talk to our client side
 
-* [x] using fetch for making http request to our backend
+* [x] using fetch for making http request to our backend.
 
-* [x] Sign Up api testing with client side success
+* [x] Sign Up api testing with client side success.
+
+* [x] Sign In api testing with client side success.
+
+* [x] Clear the form when user hits the button.
+
+* [x] Sign the token when the user is logged in.
+
+* [x] When the user is not logged in show Sign Up and Sign In button.
+
+* [x]  When the user is logged in show Logout Button. 
+
+* [x] When the user hits the Logout button clear the localstorage.
+
+* [x] Don't show the profile link on navbar unless the user is logged in.
+
+* [x] Prevent the user form directly going to profile page.
+
+* [] Enable Browser side validtions.

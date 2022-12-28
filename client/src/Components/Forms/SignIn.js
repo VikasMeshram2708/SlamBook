@@ -6,15 +6,40 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const apiURI = "/api/auth/userLogin";
   const formSubmitted = useCallback(
-    (event) => {
+    async (event) => {
       event.preventDefault();
       const data = {
         email,
         password,
       };
       console.log(data);
-      navigate("/profile");
+      const response = await fetch(apiURI, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await response.json();
+      const { token } = json;
+      if (response.status === 201) {
+        alert("User Logged Successfully...");
+        navigate("/profile");
+        setEmail("");
+        setPassword("");
+        localStorage.setItem("authToken", token);
+      }
+      if (response.status === 403) {
+        alert("Hey, try to register with valid credentails...");
+      }
+      if (response.status === 404) {
+        alert("Try to register with valid Credentials invalid key provided...");
+      }
+      if (response.status === 500) {
+        alert("Some Internal Server Error");
+      }
     },
     // eslint-disable-next-line
     [email, password]

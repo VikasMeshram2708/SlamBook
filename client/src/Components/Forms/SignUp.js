@@ -29,6 +29,14 @@ const SignUp = () => {
       });
       const json = await response.json();
       console.log(json);
+      if (response.status === 201) {
+        alert("User Registerd Successfully...");
+        setName("");
+        setEmail("");
+        setPhone("");
+        setPassword("");
+        setDob("");
+      }
       if (response.status === 403) {
         alert(
           "Hey, try to register with valid credentails email already registerd..."

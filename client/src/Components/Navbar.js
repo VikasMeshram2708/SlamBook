@@ -28,11 +28,15 @@ const Navbar = (props) => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/profile">
-                  {props.navItem}
-                </Link>
-              </li>
+              {localStorage.getItem("authToken") ? (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/profile">
+                    {props.navItem}
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
               <li className="nav-item">
                 <Link className="nav-link" to="/about">
                   {props.navItem2}
@@ -44,22 +48,35 @@ const Navbar = (props) => {
                 </Link>
               </li>
             </ul>
-            <form className="d-flex">
+            {!localStorage.getItem("authToken") ? (
+              <form className="d-flex">
+                <button
+                  onClick={() => navigate("/signUp")}
+                  className="btn btn-primary my-2 my-sm-0"
+                  type="button"
+                >
+                  {props.navItem4}
+                </button>
+                <button
+                  onClick={() => navigate("/signIn")}
+                  className="btn btn-danger mx-2 my-2 my-sm-0"
+                  type="button"
+                >
+                  {props.navItem5}
+                </button>
+              </form>
+            ) : (
               <button
-                onClick={() => navigate("/signUp")}
-                className="btn btn-primary my-2 my-sm-0"
-                type="button"
-              >
-                {props.navItem4}
-              </button>
-              <button
-                onClick={() => navigate("/signIn")}
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.reload();
+                }}
                 className="btn btn-danger mx-2 my-2 my-sm-0"
                 type="button"
               >
-                {props.navItem5}
+                {props.navItem6}
               </button>
-            </form>
+            )}
           </div>
         </div>
       </nav>
@@ -74,6 +91,7 @@ Navbar.defaultProps = {
   navItem3: "Contact",
   navItem4: "Sign Up",
   navItem5: "Sign In",
+  navItem6: "Logout",
 };
 
 export default Navbar;

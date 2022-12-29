@@ -5,7 +5,7 @@ const Navbar = (props) => {
   const navigate = useNavigate();
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             {props.title}
@@ -22,44 +22,53 @@ const Navbar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarColor02">
-            <ul className="navbar-nav me-auto active">
+            <ul className="navbar-nav me-auto">
               {localStorage.getItem("authToken") ? (
                 <li className="nav-item">
-                  <Link className="nav-link" to="/profile">
+                  <Link className="nav-link" to="/slams">
                     {props.navItem}
                   </Link>
                 </li>
               ) : (
                 ""
               )}
+              <li className="nav-item">
+                <Link className="nav-link" to="/about">
+                  {props.navItem2}
+                </Link>
+              </li>
             </ul>
             {!localStorage.getItem("authToken") ? (
               <form className="d-flex">
                 <button
-                  onClick={() => navigate("/signUp")}
-                  className="btn btn-primary my-2 my-sm-0"
+                  className="btn btn-danger rounded my-2 my-sm-0"
                   type="button"
+                  onClick={() => {
+                    navigate("/signUp");
+                  }}
                 >
-                  {props.navItem4}
+                  {props.btn1}
                 </button>
                 <button
-                  onClick={() => navigate("/signIn")}
-                  className="btn btn-danger mx-2 my-2 my-sm-0"
+                  className="btn btn-secondary rounded my-2 mx-2 my-sm-0"
                   type="button"
+                  onClick={() => {
+                    navigate("/signIn");
+                  }}
                 >
-                  {props.navItem5}
+                  {props.btn2}
                 </button>
               </form>
             ) : (
               <button
+                className="btn btn-danger rounded my-2 mx-2 my-sm-0"
+                type="button"
                 onClick={() => {
                   localStorage.clear();
                   window.location.reload();
                 }}
-                className="btn btn-danger mx-2 my-2 my-sm-0"
-                type="button"
               >
-                {props.navItem6}
+                {props.btn3}
               </button>
             )}
           </div>
@@ -68,15 +77,14 @@ const Navbar = (props) => {
     </>
   );
 };
-
 Navbar.defaultProps = {
   title: "SlamBook",
-  navItem: "Profile",
+  navItem: "Slams",
   navItem2: "About",
   navItem3: "Contact",
-  navItem4: "Sign Up",
-  navItem5: "Sign In",
-  navItem6: "Logout",
+  btn1: "Sign Up",
+  btn2: "Sign In",
+  btn3: "Logout",
 };
 
 export default Navbar;

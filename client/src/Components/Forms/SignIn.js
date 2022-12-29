@@ -1,16 +1,21 @@
 import React, { useState, useCallback } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const [success, setSuccess] = useState(false);
-  const [invalidEmailSuccess, setInvalidEmailSuccess] = useState(false);
-  const [internalError, setInternalError] = useState(false);
-  const [invalidKey, setInvalidKey] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const apiURI = "/api/auth/userLogin";
+  const [successMsg, setSuccessMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const Msg201 = "User Logged In Successfully...";
+  const Msg404 =
+    "Hey, try to login with valid credentails invalid key provided";
+  const Msg422 =
+    "Try to login with valid Credentials invalid Email provided...";
+
   const formSubmitted = useCallback(
     async (event) => {
       event.preventDefault();
@@ -19,7 +24,7 @@ const SignIn = () => {
         password,
       };
       // console.log(data);
-      const response = await fetch(apiURI, {
+      const response = await fetch("/api/auth/userLogin", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -27,33 +32,26 @@ const SignIn = () => {
         },
       });
       const json = await response.json();
-      // console.log(json);
-      const { token } = json;
-      // console.log(token)
+      console.log(json.token);
       if (response.status === 201) {
-        setEmail("");
-        setPassword("");
-        setSuccess(true);
-        localStorage.setItem("authToken", token);
+        setSuccessMsg(true);
+        setErrorMsg(Msg201);
+        localStorage.setItem("authToken", json.token);
         setTimeout(() => {
-          navigate("/profile");
+          navigate("/slams");
+          window.location.reload();
+        }, 3000);
+      }
+      if (response.status === 404) {
+        setSuccessMsg(true);
+        setErrorMsg(Msg404);
+        setTimeout(() => {
+          window.location.reload();
         }, 3000);
       }
       if (response.status === 422) {
-        setInvalidEmailSuccess(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-        // alert("");
-      }
-      if (response.status === 404) {
-        setInvalidKey(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-      }
-      if (response.status === 500) {
-        setInternalError(true);
+        setSuccessMsg(true);
+        setErrorMsg(Msg422);
         setTimeout(() => {
           window.location.reload();
         }, 3000);
@@ -65,62 +63,12 @@ const SignIn = () => {
 
   return (
     <>
-      {success ? (
+      {successMsg ? (
         <div
           className="text-center alert alert-warning alert-dismissible fade show"
           role="alert"
         >
-          <strong>User Logged In Successfully...</strong>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-        </div>
-      ) : (
-        ""
-      )}
-      {invalidEmailSuccess ? (
-        <div
-          className="text-center alert alert-warning alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>Try to login with valid Credentials or password</strong>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-        </div>
-      ) : (
-        ""
-      )}
-      {invalidKey ? (
-        <div
-          className="text-center alert alert-warning alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>
-            Try to register with valid Credentials invalid key provided...
-          </strong>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-        </div>
-      ) : (
-        ""
-      )}
-      {internalError ? (
-        <div
-          className="text-center alert alert-warning alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>Some Internal Server Error</strong>
+          <strong>{errorMsg}</strong>
           <button
             type="button"
             className="btn-close"
@@ -146,7 +94,6 @@ const SignIn = () => {
               setEmail(event.target.value);
             }}
             placeholder="name@example.com"
-            required
           />
           <label htmlFor="floatingInput">Email address</label>
         </div>
@@ -160,8 +107,6 @@ const SignIn = () => {
               setPassword(event.target.value);
             }}
             placeholder="Password"
-            minLength="5"
-            required
           />
           <label htmlFor="floatingPassword">Password</label>
         </div>
@@ -170,13 +115,10 @@ const SignIn = () => {
             <Link to="/signUp">New User</Link>
           </label>
         </div>
-        <button className="w-100 btn btn-lg btn-primary" type="submit">
+        <button className="w-100 rounded fs-5 btn btn-primary" type="submit">
           Sign In
         </button>
         <hr className="my-4" />
-        <small className="text-muted">
-          By clicking Sign up, you agree to the terms of use.
-        </small>
       </form>
     </>
   );

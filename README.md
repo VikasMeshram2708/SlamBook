@@ -28,50 +28,27 @@
 * [x] run create-react-app command inside the client folder like
 [" create-react-app . "]
 
+* [x] Add BootsWatch to our project. [https://bootswatch.com/]
+
 * [x] install react-router-dom library for routing.
 
-* [x] Add BootsWatch to our project. [https://bootswatch.com/]
+* [x] Setup Routing on nav items.
 
 * [x] Create Components like [Navbar, Forms, etc...]
 
 * [x] Create Sign Up & Sign in forms with form actions...
 
+* [x] Show Bootstrap alerts component on every valid and invalid request
+
+* [x] Use useContext api.
+
 * [x] When the user logs in he/she should be redirected to profile page...
 
-* [x] Create Profile page having input properties of title, description, and tag.
-
-
-# Make Backend talk to our client side
-
-* [x] using fetch for making http request to our backend.
-
-* [x] Sign Up api testing with client side success.
-
-* [x] Sign In api testing with client side success.
-
-* [x] Clear the form when user hits the button.
-
-* [x] Sign the token when the user is logged in.
-
-* [x] When the user is not logged in show Sign Up and Sign In button.
-
-* [x]  When the user is logged in show Logout Button. 
-
-* [x] When the user hits the Logout button clear the localstorage.
-
-* [x] Don't show the profile link on navbar unless the user is logged in.
-
-* [x] Prevent the user form directly going to profile page.
-
-
-* [x] Show Bootstrrap Alerts when the user Sign Up or Sign In.
-
-* [x] When the User Sign UP or Sign In show the bootstrap alert for 3 second and then redirect to respective nav Items.
+* [x] Profile page should have input properties of title, description, and tag.
 
 
 # Additions Customization
 * [x] On Every valid and invalid request we're showing the bootstrap alert event.
-
 * [x] Before Deploying on web remove the logs.
 * [x] Use mongodb atlas.
 * [x] Make Broswer Side Validations.
@@ -82,9 +59,12 @@
 * [x] Make request to read slam api.
 * [x] Make request to Update slam api.
 * [x] Make request to Delete slam api.
+* [x] Show our Users on About us Page.
 
 # To Update Your Slam
 1. Click on Update
 2. Change Your title, tag, or Description...
 3. Hit the Make Chage Button.
 4. Delete that duplicate slam.
+
+* [x] All New Chagees are done...

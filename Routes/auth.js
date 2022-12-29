@@ -14,6 +14,21 @@ const jwt = require("jsonwebtoken");
 
 const fetchuser = require("../Middlewares/fetchuser");
 
+// get all the users
+router.get("/showAllUsers", async (req, res) => {
+  try {
+    const users = await User.find();
+    return res.status(201).json({
+      message: users,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Some Internal Server Error",
+      error: error.message,
+    });
+  }
+});
+
 // Route 1: Create a User using POST : "/api/auth/createUser"
 router.post("/createUser", async (req, res) => {
   try {
@@ -82,7 +97,7 @@ router.post("/userLogin", async (req, res) => {
       });
     }
     return res.status(422).json({
-      message: "Try to login with valid Credentials or password",
+      message: "Try to login with valid Credentials Invalid Email provided...",
     });
   } catch (error) {
     return res.status(500).json({

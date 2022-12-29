@@ -3,19 +3,27 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [success, setSuccess] = useState(false);
-  const [alreadyRegisterdSuccess, setAlreadyRegisterdSuccess] = useState(false);
-  const [bothSuccess, setBothSuccess] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [dob, setDob] = useState("");
 
-  const apiURI = "/api/auth/createUser";
+  const [successMsg, setSuccessMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const msg500 =
+    "Some Internal Server error try to register with valid credentials....";
+  const msg403 =
+    "Hey, try to register with valid credentails email already registerd...";
+
+  const msg422 = "Hey, try to login with valid Credentials";
+
+  const msg201 = "User Registered Successfully";
+
   const formSubmitted = useCallback(
     async (event) => {
       event.preventDefault();
+      setSuccessMsg(true);
       const data = {
         name,
         email,
@@ -24,38 +32,40 @@ const SignUp = () => {
         dob,
       };
       // console.log(data);
-      const response = await fetch(apiURI, {
+      const response = await fetch("/api/auth/createUser", {
         method: "POST",
-        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(data),
       });
       const json = await response.json();
       console.log(json);
       if (response.status === 201) {
-        setSuccess(true);
-        setName("");
-        setEmail("");
-        setPhone("");
-        setPassword("");
-        setDob("");
+        setSuccessMsg(true);
+        setErrorMsg(msg201);
         setTimeout(() => {
           navigate("/signIn");
+          // window.location.reload();
+        }, 3000);
+      }
+      if (response.status === 500) {
+        setSuccessMsg(true);
+        setErrorMsg(msg500);
+        setTimeout(() => {
+          window.location.reload();
         }, 3000);
       }
       if (response.status === 403) {
-        setAlreadyRegisterdSuccess(true);
-        // after 3 seconds reload the window
+        setSuccessMsg(true);
+        setErrorMsg(msg403);
         setTimeout(() => {
           window.location.reload();
         }, 3000);
       }
       if (response.status === 422) {
-        alert("Try to register with valid Credentials...");
-      }
-      if (response.status === 500) {
-        setBothSuccess(true);
+        setSuccessMsg(true);
+        setErrorMsg(msg422);
         setTimeout(() => {
           window.location.reload();
         }, 3000);
@@ -67,47 +77,12 @@ const SignUp = () => {
 
   return (
     <>
-      {success ? (
+      {successMsg ? (
         <div
           className="text-center alert alert-warning alert-dismissible fade show"
           role="alert"
         >
-          <strong>User Registerd Successfully...</strong>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-        </div>
-      ) : (
-        ""
-      )}
-      {alreadyRegisterdSuccess ? (
-        <div
-          className="text-center alert alert-warning alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>
-            Hey, try to register with valid credentails email already
-            registerd...
-          </strong>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-        </div>
-      ) : (
-        ""
-      )}
-      {bothSuccess ? (
-        <div
-          className="text-center alert alert-warning alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>Some Internal Server Error</strong>
+          <strong>{errorMsg}</strong>
           <button
             type="button"
             className="btn-close"
@@ -129,11 +104,12 @@ const SignUp = () => {
             className="form-control"
             id="name"
             value={name}
+            minLength="2"
+            maxLength="30"
             onChange={(event) => {
               setName(event.target.value);
             }}
             placeholder="name"
-            minLength="2"
             required
           />
           <label htmlFor="floatingInput">Name</label>
@@ -158,11 +134,12 @@ const SignUp = () => {
             className="form-control"
             id="password"
             value={password}
+            minLength="5"
+            maxLength="150"
             onChange={(event) => {
               setPassword(event.target.value);
             }}
             placeholder="Password"
-            minLength="5"
             required
           />
           <label htmlFor="floatingPassword">Password</label>
@@ -172,13 +149,13 @@ const SignUp = () => {
             type="text"
             className="form-control"
             id="phone"
-            size="30"
-            maxLength="99"
             value={phone}
+            minLength="10"
+            maxLength="10"
             onChange={(event) => {
               setPhone(event.target.value);
             }}
-            placeholder="mobile no...."
+            placeholder="phone"
             required
           />
           <label htmlFor="floatingInput">Phone</label>
@@ -192,7 +169,7 @@ const SignUp = () => {
             onChange={(event) => {
               setDob(event.target.value);
             }}
-            placeholder="Date of Birth"
+            placeholder="Dob"
             required
           />
           <label htmlFor="floatingInput">Date of Birth</label>
@@ -202,7 +179,7 @@ const SignUp = () => {
             <Link to="/signIn">Already a User</Link>
           </label>
         </div>
-        <button className="w-100 btn btn-lg btn-primary" type="submit">
+        <button className="w-100 btn rounded fs-5 btn-primary" type="submit">
           Sign up
         </button>
         <hr className="my-4" />

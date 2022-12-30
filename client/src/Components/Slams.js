@@ -4,12 +4,16 @@ import SlamContext from "../Context/Slams/SlamContext";
 
 const Slams = () => {
   const details = useContext(SlamContext);
+  const [userUpdateId, setUserUpdateId] = useState("");
+  
   const { items } = details;
 
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
+
+  const updatedMsg201 = "Your Slam was Successfully Updated";
 
   const [successMsg, setSuccessMsg] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -47,6 +51,28 @@ const Slams = () => {
     if (response.status === 201) {
       setSuccessMsg(true);
       setErrorMsg(msg201);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    }
+  };
+
+  const updateMySlam = async () => {
+    console.log(userUpdateId);
+    const response = await fetch(`/api/slams/updateSlam/${userUpdateId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authToken: localStorage.getItem("authToken"),
+      },
+      body: JSON.stringify({title, description, tag}),
+    });
+
+    await response.json();
+    // console.log(json);
+    if (response.status === 201) {
+      setSuccessMsg(true);
+      setErrorMsg(updatedMsg201);
       setTimeout(() => {
         window.location.reload();
       }, 3000);
@@ -138,8 +164,9 @@ const Slams = () => {
           </button>
         ) : (
           <button
+            onClick={updateMySlam}
             className="my-3 w-100 btn rounded fs-5 btn-primary"
-            type="submit"
+            type="button"
           >
             Update My Slam
           </button>
@@ -168,7 +195,7 @@ const Slams = () => {
                       className="btn btn-sm btn-danger fs-5 rounded"
                       type="button"
                       onClick={async () => {
-                        console.log(item._id)
+                        console.log(item._id);
                         const response = await fetch(
                           `/api/slams/deleteSlam/${item._id}`,
                           {
@@ -193,12 +220,13 @@ const Slams = () => {
                     <button
                       className="btn btn-sm btn-info mx-3 fs-5 rounded"
                       type="button"
-                      onClick={() => {
+                      onClick={async () => {
                         // make available new button
                         setNewBtn(true);
                         setTitle(item.title);
                         setDescription(item.description);
                         setTag(item.tag);
+                        setUserUpdateId(item._id)
                       }}
                     >
                       Update

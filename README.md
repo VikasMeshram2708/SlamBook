@@ -67,4 +67,8 @@
 3. Hit the Make Chage Button.
 4. Delete that duplicate slam.
 
-* [x] All New Chagees are done...
+
+* [x] Implement useContect api in this project
+
+# This is Full MERN Stack Application.
+    ### It has CRUD operations and it's fully responsive.

@@ -28,7 +28,7 @@ const SlamState = (props) => {
     setCurrentUsers(json.message);
     setCurrentUsers(json.message);
   };
-  
+
   useEffect(() => {
     if (localStorage.getItem("authToken")) {
       getMySlams(); // from prevent the error when use was not logged in it was sending the http request to fetch the user slams

@@ -71,4 +71,5 @@
 * [x] Implement useContect api in this project
 
 # This is Full MERN Stack Application.
-    ### It has CRUD operations and it's fully responsive.
+
+* It has CRUD operations and it's fully responsive.

@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import prisma from "../prisma";
 
 import bcrypt from "bcryptjs";
+import { connectToDb } from "../utils/connectToDB";
 
 export const newUser = async (req: Request, res: Response) => {
   try {
@@ -11,6 +12,8 @@ export const newUser = async (req: Request, res: Response) => {
     if (!name || !email || !password || !username) {
       throw new Error("The Required Fields cannot be empty.");
     }
+
+    await connectToDb();
 
     // Check if Email is already in use
     const emailExist = await prisma.user.findUnique({

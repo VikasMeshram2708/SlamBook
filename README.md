@@ -29,6 +29,10 @@
         - Optional for users we'll provide by default based on the Gender.
         - Optional
 
+    * Slams
+        - Automatically will be inserted 
+        - Requireds
+
 
 * SLAMS [This Collectin will store our Slams Created by the users.]
 

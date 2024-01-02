@@ -7,7 +7,6 @@ const router = express.Router();
 // POST : 
 router.route('/create-user').post(newUser);
 
-
 // GET
 router.route('/get-all-users').get(getALlUsers);
 

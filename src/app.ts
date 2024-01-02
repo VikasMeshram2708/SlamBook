@@ -21,8 +21,10 @@ app.use(cookieParser());
 // routes
 
 import userRoute from "../routes/userRoute";
+import slamsRoute from "../routes/slamsRoute";
 
 app.use("/api", userRoute);
+app.use("/api/slams", slamsRoute);
 
 app.get("/", (req, res) => {
   res.json({
